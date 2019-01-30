@@ -1,0 +1,80 @@
+
+ <section >
+    <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">Evento</h4>
+          <form novalidate  [formGroup]='crearform' (ngSubmit)='crear()' class="form-horizontal form-material">
+   
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label >Nombre</label>
+                      <input type="text" class="form-control"    placeholder="Ingrese Nombre" formControlName='nombre' >
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label >Lugar</label>
+                        <input type="text" class="form-control"   placeholder="Ingrese descripcion" formControlName='place' >
+                         </div>  
+            
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label >Dirección</label>
+                          <input type="text" class="form-control"   placeholder="Ingrese descripcion" formControlName='address' >
+                            </div>  
+              
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Fecha inicio</label>
+                            <input type="text" class="form-control"  placeholder="Ingrese descripcion" formControlName='initDate' >
+                           </div>  
+                
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label >Fecha Final</label>
+                              <input type="text" class="form-control"   placeholder="Ingrese descripcion" formControlName='endDate' >
+                                </div>  
+                  
+                        </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <div class="form-group">
+                              <label >Tipo Evento</label>
+                              <select  formControlName='event_type' class="form-control">
+                                <option value="">--SELECCIONE EL CAMPO CORRESPONDIENTE--</option>
+                                <option *ngFor="let eventTypeItem of _lists.event_type " value= {{eventTypeItem.idevent_type}}>{{eventTypeItem.name}} </option>
+                                 </select>
+                              <app-error [control]="crearform.controls.event_type">   </app-error> 
+                            </div>
+                      </div>
+                    </div>
+                  
+          
+                      <div class="col-md-6">        
+                          <div class="form-group">
+                              <div class="form-group">
+                                  <label >Categoria</label>
+                                  <select  formControlName='category' class="form-control">
+                                    <option value="">--SELECCIONE EL CAMPO CORRESPONDIENTE--</option>
+                                    <option *ngFor="let cat of _lists.category " value= {{cat.idcategory}}>{{cat.name}} </option>
+                                    </select>
+                                  <app-error [control]="crearform.controls.category">   </app-error> 
+                                </div>
+                          </div>
+                     </div>   
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">     
+                        <button type="submit"  class="btn btn-styled btn-primary btn-lg btn-block">{{textButton}}</button>
+                    </div>
+                  </div>
+            </form>
+      </div>
+  </div>
+  </section>
