@@ -10,6 +10,8 @@
                     <div class="form-group">
                       <label >Nombre</label>
                       <input type="text" class="form-control"    placeholder="Ingrese Nombre" formControlName='nombre' >
+                      <app-error [control]="crearform.controls.nombre"> </app-error>  
+                 
                     </div>
                  </div>
                  <div class="col-md-6">
@@ -29,15 +31,28 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >Fecha inicio</label>
-                            <input type="text" class="form-control"  placeholder="Ingrese descripcion" formControlName='initDate' >
-                           </div>  
-                
+                                  <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                           name="dpInit" readonly  formControlName='initDate' ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append">
+                                      <button class="btn btn-outline-secondary calendar glyphicon glyphicon-calendar" (click)="d.toggle()" type="button"></button>
+                                    </div>
+                                  </div>
+                      </div>  
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
                               <label >Fecha Final</label>
-                              <input type="text" class="form-control"   placeholder="Ingrese descripcion" formControlName='endDate' >
-                                </div>  
+                              <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                       name="dpEnd" readonly   formControlName='endDate' ngbDatepicker #dq="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary calendar glyphicon glyphicon-calendar" (click)="dq.toggle()" type="button">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                  </button>
+                                </div>
+                              </div>
+                          </div>  
                   
                         </div>
               </div>
@@ -50,11 +65,10 @@
                                 <option value="">--SELECCIONE EL CAMPO CORRESPONDIENTE--</option>
                                 <option *ngFor="let eventTypeItem of _lists.event_type " value= {{eventTypeItem.idevent_type}}>{{eventTypeItem.name}} </option>
                                  </select>
-                              <app-error [control]="crearform.controls.event_type">   </app-error> 
-                            </div>
+                             </div>
                       </div>
                     </div>
-                  
+
           
                       <div class="col-md-6">        
                           <div class="form-group">
@@ -64,14 +78,16 @@
                                     <option value="">--SELECCIONE EL CAMPO CORRESPONDIENTE--</option>
                                     <option *ngFor="let cat of _lists.category " value= {{cat.idcategory}}>{{cat.name}} </option>
                                     </select>
-                                  <app-error [control]="crearform.controls.category">   </app-error> 
-                                </div>
+                                   </div>
                           </div>
                      </div>   
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">     
                         <button type="submit"  class="btn btn-styled btn-primary btn-lg btn-block">{{textButton}}</button>
+                        <div *ngIf="textButton=='Crear'" style="text-align:center">  <a routerLink="/historical" style=" text-decoration: underline"><h4>Volver al historial</h4></a>
+                        </div>
+                      
                     </div>
                   </div>
             </form>

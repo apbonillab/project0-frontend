@@ -1,36 +1,17 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-primary topspace">
  
-  <a class="navbar-brand" routerLink="/">Admin P&S</a>
+  <a class="navbar-brand" routerLink="/">Eventos Proyecto 0 Cloud</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Recursos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">General</a>
-          <a class="dropdown-item" routerLink="/crear">Crear</a>
-          <a class="dropdown-item" routerLink="/fases">Buscar por Fases</a>
-          <a class="dropdown-item" routerLink="/gestioncalidad">Gestion de Calidad</a>
-          <a class="dropdown-item" routerLink="/lista-recursos">Listar recursos</a>
-          <a class="dropdown-item" routerLink="/reasignacion">Reasignar</a>
-          <a class="dropdown-item" routerLink="/recursos-controlcalidad">Ver lista de Chequeo por Recurso</a>
-          <!--<a class="dropdown-item" routerLink="/responsable">Responsable</a>-->
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"></a>
-        </div>
-      </li>
+     
       <li class="nav-item">
-        <a class="nav-link" href="#">Proyectos</a>
+        <a class="nav-link" (click)="closeSession()">Cerrar sesion</a>
       </li>
       
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Control calidad</a>
-      </li>
     </ul>
   </div>
 </nav>

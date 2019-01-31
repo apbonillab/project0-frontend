@@ -51,6 +51,7 @@ export class HistoricalComponent implements OnInit {
 }
 
 closeModal(){
+  this.getAll();
   this.modalService.dismissAll();
 }
 
@@ -70,6 +71,7 @@ Detail(idEvent,content){
 
 deleteEvent(idEvent){
   this.event.deleteEvent(idEvent).subscribe((event:any)=>{
+    this.getAll();
     swal(
       'OK!',
       'Se elimino evento Exitosamente',

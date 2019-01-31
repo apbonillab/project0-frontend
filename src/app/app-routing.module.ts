@@ -4,10 +4,13 @@ import { LandingComponent } from './landing/landing.component';
 import { CommonModule } from '@angular/common';
 import { CreateComponent } from './create/create.component';
 import { HistoricalComponent } from './historical/historical.component';
+import { AuthGuardService } from './core/services/guards/auth-guard.service';
 
 const appRoutes: Routes = [
-     { path:'**', component:HistoricalComponent},
-     { path:'create',component:CreateComponent}
+     { path:'historical', component:HistoricalComponent,canActivate: [AuthGuardService]},
+     { path:'create',component:CreateComponent,canActivate: [AuthGuardService] },
+     { path:'**', component:LandingComponent},
+     
 ];
 
 

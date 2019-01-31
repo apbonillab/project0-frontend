@@ -16,7 +16,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './core/services/Token_Interceptor';
 import { AuthenticatedService } from './core/services/authenticated.service';
 import { HistoricalComponent } from './historical/historical.component';
-
+import { AuthGuardService } from './core/services/guards/auth-guard.service';
+import {MatDatepickerModule, MatCheckboxModule, MatFormFieldModule, MatNativeDateModule, MatInputModule} from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +34,13 @@ import { HistoricalComponent } from './historical/historical.component';
     CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule 
   ],
-  providers: [GeneralListService,EventsService,AuthenticatedService,
+  providers: [GeneralListService,EventsService,AuthenticatedService,AuthGuardService,
               {  provide: HTTP_INTERCEPTORS,
                 useClass: TokenInterceptor,
                 multi: true}],

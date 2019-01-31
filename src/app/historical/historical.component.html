@@ -1,6 +1,6 @@
 <br/>
-     <label class="control-label col-sm-4" for="reasignacionName">Lista Eventos</label>
-<table class="table table-striped">
+     <a routerLink="/create" style=" text-decoration: underline"><h4>Crear Evento</h4></a>
+     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Nombre</th>
@@ -10,7 +10,7 @@
   <tbody>
     <tr *ngFor="let event of listEvent">
       <td>{{event.name}}</td>
-      <td>{{event.create_date}}</td>
+      <td>{{event.create_date | date: 'dd/MM/yyyy'}}</td>
        <td> <button (click)="Detail(event.idevent,content)">Ver detalle</button></td>
        <td> <button (click)="deleteEvent(event.idevent)">Eliminar</button></td>
        <td> <button (click)="DetailEditEvent(event.idevent,content)">Editar</button></td>

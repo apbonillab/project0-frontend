@@ -3,8 +3,11 @@ import { AbstractControlDirective, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css']
+  template: `
+    <ul *ngIf="showErrors()">
+      <li style="color: red" *ngFor="let error of errors()">{{error}}</li>
+    </ul>
+  `,
 })
 export class ErrorComponent implements OnInit {
 

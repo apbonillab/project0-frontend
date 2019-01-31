@@ -4,8 +4,7 @@ import { Event } from '../core/interfaces/EventCreate';
 import { GeneralListService } from '../core/services/general-list.service';
 import swal from 'sweetalert2';
 import { EventsService } from '../core/services/events.service';
-import { debug } from 'util';
-import { create } from 'domain';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
 
 @Component({
   selector: 'app-create',
@@ -24,20 +23,48 @@ export class CreateComponent implements OnInit {
   @Input() isDetail:boolean;
   @Output() close =  new EventEmitter();
   textButton = "Crear";
+  dateJson : NgbDateStruct;
+  dateJsonEnd : NgbDateStruct;
   ngOnInit() {
-    let value = this.eventDetail[0];
+    let value;
+    if(this.eventDetail){
+       value = this.eventDetail[0];
+
+    }
+    
 
     
     if(value){
+      if(value.init_date){
+        let withouthour = value.init_date.split("T");
+        let date = withouthour[0].split("-");
+        let json = {
+          "year": parseInt(date[0]),
+          "month":parseInt(date[1]),
+          "day":parseInt(date[2])
+        }
+        this.dateJson=json;
+      }
+      if(value.end_date){
+        let withouthourEnd = value.end_date.split("T");
+        let dateEnd = withouthourEnd[0].split("-");
+        let jsonEnd = {
+          "year": parseInt(dateEnd[0]),
+          "month":parseInt(dateEnd[1]),
+          "day":parseInt(dateEnd[2])
+        }
+        this.dateJsonEnd=jsonEnd;
+      }
+     
       this.crearform = this.frmBuilder.group({
         idevent: [value.idevent, [] ],
-        nombre: [value.name, [] ],
-        place: [value.place, []] ,
-        address: [value.address, []],
-        initDate: [ value.init_date , []],
-        endDate : [value.end_date, []],
-        event_type : [value.event_type , []],
-        category : [value.category, [ ]],
+        nombre: [value.name, [Validators.required ] ],
+        place: [value.place, [Validators.required ]] ,
+        address: [value.address, [Validators.required ]],
+        initDate: [this.dateJson , [Validators.required ]],
+        endDate : [this.dateJsonEnd, [Validators.required ]],
+        event_type : [value.event_type , [Validators.required ]],
+        category : [value.category, [Validators.required  ]],
   
       });
       if(this.isDetail)
@@ -47,13 +74,13 @@ export class CreateComponent implements OnInit {
         
     }else{
       this.crearform = this.frmBuilder.group({
-        nombre: ['', [] ],
-        place: ['', []] ,
-        address: ['', []],
-        initDate: [ '' , []],
-        endDate : ['', []],
-        event_type : ['' , []],
-        category : ['', [ ]],
+        nombre: [null, [Validators.required,Validators.minLength(2)] ],
+        place: ['', [Validators.required,Validators.minLength(2)]] ,
+        address: ['', [Validators.required,Validators.minLength(2)]],
+        initDate: [ '' , [Validators.required,Validators.minLength(2)]],
+        endDate : ['', [Validators.required,Validators.minLength(2)]],
+        event_type : ['' , [Validators.required,Validators.minLength(1)]],
+        category : ['', [Validators.required,Validators.minLength(1) ]],
   
       });
     }
@@ -72,22 +99,34 @@ export class CreateComponent implements OnInit {
  crear(): void {
   
   if ( this.crearform.invalid) {
+    swal(
+      'ERROR!',
+      'Error, Faltan campos requeridos!!',
+      'error'
+    );
     return;
   }
-
+  let year = this.crearform.value.initDate.year;
+  let month = this.crearform.value.initDate.month;
+  let day = this.crearform.value.initDate.day;
+  let dayformatInit =  year+'/'+month+'/'+day;
+  let yearEnd = this.crearform.value.endDate.year;
+  let monthEnd = this.crearform.value.endDate.month;
+  let dayEnd = this.crearform.value.endDate.day;
+  let dayformatEnd =  yearEnd+'/'+monthEnd+'/'+dayEnd;
   this.eventCreate = new Event(
     this.crearform.value.idevent,
     this.crearform.value.place,
     this.crearform.value.nombre,
     this.crearform.value.address,
-    this.crearform.value.initDate,
-    this.crearform.value.endDate,
+    dayformatInit,
+    dayformatEnd,
     parseInt(localStorage.getItem('user')),
     this.crearform.value.category,
     this.crearform.value.event_type,
     ""
  );
- if( this.eventDetail[0]){
+ if( this.eventDetail){
       if(this.isDetail)
           this.close.emit();
     else
@@ -95,6 +134,7 @@ export class CreateComponent implements OnInit {
  }else{
    this.createEvent();
  }
+ 
     
   }
 
