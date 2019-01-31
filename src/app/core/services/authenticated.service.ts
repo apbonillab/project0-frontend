@@ -14,4 +14,16 @@ export class AuthenticatedService {
   login(loginData: Login): Observable<any> {
     return this.http.post<any>(URL + USERS+LOGIN, loginData);
 }
+
+register(loginData: Login): Observable<any> {
+  return this.http.post<any>(URL + USERS+"/", loginData);
+}
+isAuthenticated(){
+   const token = localStorage.getItem('token');
+  if (token) {
+    return true;
+    }
+  else 
+    return false;
+  }
 }
